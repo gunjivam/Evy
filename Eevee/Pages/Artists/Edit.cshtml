@@ -1,0 +1,70 @@
+﻿@page
+@model Eevee.Pages.Artists.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Artist</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Artist.ArtistID" />
+            <div class="form-group">
+                <label asp-for="Artist.Name" class="control-label"></label>
+                <input asp-for="Artist.Name" class="form-control" />
+                <span asp-validation-for="Artist.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.StartDate" class="control-label"></label>
+                <input asp-for="Artist.StartDate" class="form-control" />
+                <span asp-validation-for="Artist.StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.Image" class="control-label"></label>
+                <input asp-for="Artist.Image" class="form-control" />
+                <span asp-validation-for="Artist.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.Password" class="control-label"></label>
+                <input asp-for="Artist.Password" class="form-control" />
+                <span asp-validation-for="Artist.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.Description" class="control-label"></label>
+                <input asp-for="Artist.Description" class="form-control" />
+                <span asp-validation-for="Artist.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.Listens" class="control-label"></label>
+                <input asp-for="Artist.Listens" class="form-control" />
+                <span asp-validation-for="Artist.Listens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.Rating" class="control-label"></label>
+                <input asp-for="Artist.Rating" class="form-control" />
+                <span asp-validation-for="Artist.Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Artist.WordVec" class="control-label"></label>
+                <input asp-for="Artist.WordVec" class="form-control" />
+                <span asp-validation-for="Artist.WordVec" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

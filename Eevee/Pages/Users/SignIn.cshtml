@@ -1,0 +1,44 @@
+﻿@page
+@model Eevee.Pages.Users.SignInModel
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<h1>SignIn</h1>
+
+<hr />
+
+
+<h5> @Model.msg </h5>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <table>
+                <tr>
+                    <td> Email or Username </td>
+                    <td>
+                        <input type="text" asp-for="@Model.user_info" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> Password </td>
+                    <td>
+                        <input type="text" asp-for="@Model.user_password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td> &nbsp;</td>
+                    <td> <input type="submit" value="Login"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

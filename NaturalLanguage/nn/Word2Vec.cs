@@ -162,6 +162,25 @@ namespace NaturalLanguage.NN
 
         }
 
+        public override float[] PredictText(string text)
+        {
+            string[] words = Text.RemoveStopWords.RemoveWords(text.Trim().ToLower());
+
+            float[][] vectors = new float[words.Length][];
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                vectors[i] = Predict(words[i]);
+            }
+
+            // Parallel.ForEach(words, word =>
+            //{
+            //    vector = NaturalLanguage.vector.VectorSpace.Add(vector, model.Predict(word));
+            //});
+
+            return vector.VectorSpace.Normalize(vector.VectorSpace.Add(vectors));
+        }
+
 
         // Generate training batch for the skip-gram model
         private (NDArray, NDArray) next_batch(int batch_size, int num_skips, int skip_window)

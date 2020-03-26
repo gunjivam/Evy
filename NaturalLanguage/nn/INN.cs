@@ -14,6 +14,8 @@ namespace NaturalLanguage.NN
 
         float[] Predict(string word);
 
+        float[] PredictText(string text);
+
         Graph ImportGraph();
 
         void BuildGraph();

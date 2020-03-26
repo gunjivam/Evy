@@ -14,9 +14,9 @@ namespace Eevee.Pages.Songs
     {
         private readonly Eevee.Data.EeveeContext _context;
 
-        private readonly ITP _textprocessor;
+        private readonly NaturalLanguage.NN.INN _textprocessor;
 
-        public IndexModel(Eevee.Data.EeveeContext context, ITP textprocessor)
+        public IndexModel(Eevee.Data.EeveeContext context, NaturalLanguage.NN.INN textprocessor)
         {
             _context = context;
 
@@ -38,17 +38,18 @@ namespace Eevee.Pages.Songs
             {
                 List<Song> songs = _context.Song.ToList();
 
-                var word_vector = _textprocessor.ToArray(_textprocessor.Predict(SearchString));
-                lv = _textprocessor.ToString(word_vector);
+                var word_vector = _textprocessor.PredictText(SearchString);
+                lv = NaturalLanguage.vector.VectorSpace.ToString(word_vector);
 
                 if (!string.IsNullOrEmpty(SearchString))
                 {
                     foreach (var song in songs)
                     {
-                        msg += song.Name + ": " + _textprocessor.Loss(word_vector, _textprocessor.ToArray(song.WordVec)) + ", ";
+                        msg += song.Name + ": " + NaturalLanguage.vector.VectorSpace.Loss(word_vector, NaturalLanguage.vector.VectorSpace.ToArray(song.WordVec)) + ", ";
                     }
 
-                    songs.Sort((a, b) => _textprocessor.Loss(word_vector, _textprocessor.ToArray(a.WordVec)).CompareTo(_textprocessor.Loss(word_vector, _textprocessor.ToArray(b.WordVec))));
+                    songs.Sort((a, b) => NaturalLanguage.vector.VectorSpace.Loss(word_vector,
+                        NaturalLanguage.vector.VectorSpace.ToArray(a.WordVec)).CompareTo(NaturalLanguage.vector.VectorSpace.Loss(word_vector, NaturalLanguage.vector.VectorSpace.ToArray(b.WordVec))));
                 }
                 Song = songs;
             }

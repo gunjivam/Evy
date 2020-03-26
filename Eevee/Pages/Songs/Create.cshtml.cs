@@ -14,11 +14,11 @@ namespace Eevee.Pages.Songs
     {
         private readonly Eevee.Data.EeveeContext _context;
 
-        private readonly ITP _textprocessor;
+        private readonly NaturalLanguage.NN.INN _textprocessor;
 
         public string error = "";
 
-        public CreateModel(Eevee.Data.EeveeContext context, ITP textprocessor)
+        public CreateModel(Eevee.Data.EeveeContext context, NaturalLanguage.NN.INN textprocessor)
         {
             _context = context;
             _textprocessor = textprocessor;
@@ -44,7 +44,7 @@ namespace Eevee.Pages.Songs
                 return Page();
             }
 
-            Song.WordVec = _textprocessor.Predict(Song.Lyrics);
+            Song.WordVec = NaturalLanguage.vector.VectorSpace.ToString(_textprocessor.PredictText(Song.Lyrics));
 
             _context.Song.Add(Song);
             await _context.SaveChangesAsync();

@@ -39,6 +39,11 @@ namespace NaturalLanguage.NN
             throw new NotImplementedException();
         }
 
+        public virtual float[] PredictText(string text)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual string FreezeModel()
         {
             throw new NotImplementedException();

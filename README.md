@@ -1,4 +1,4 @@
-# Evy
+# Evy- Musical Application
 
 **ABOUT**
 - User will be able to create accounts in order to listen music, as well as add to their library, and get recommended music that

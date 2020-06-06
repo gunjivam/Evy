@@ -1,5 +1,5 @@
 from __future__ import division, print_function, absolute_import
-
+# Machine Learning Model to Create vectors
 import collections
 import random
 

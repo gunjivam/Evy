@@ -1,0 +1,230 @@
+<html>
+@page
+@model Eevee.Pages.Songs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+    <head>       
+        <link rel="stylesheet" href="~/css/dropdown.css" />
+        <meta charset="utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">     
+        <link href="SongPageFINAL.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    
+    <h1><div class="title">Song Page</div></h1>
+    <form>
+        <p>
+            <input type="text" asp-for="SearchString" />
+            <button class="fa fa-search"></button>
+        </p>
+    </form>
+
+    <div class="box">
+            <select>
+                <option>Songs</option>
+                <option>Artist</option>
+            </select>
+    </div>
+
+    <h4>@Model.lv</h4>
+
+    <h4>@Model.msg</h4>
+
+    <p> <a asp-page="Create">Create New</a></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Song[0].Name)
+                </th>
+                <th>
+
+                </th>
+                <th>
+                    Artist
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Song[0].Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Song[0].Listens)
+                </th>
+                <th>
+                    Likes
+                </th>
+                <th>
+                    Album
+                </th>
+                <th>
+                    Genre
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Song)
+            {
+            <tr>
+                <td>
+                    <form method="post">
+                        <button class ="material-icons" type="button" runat="server" onclick="@(Html.Raw(String.Format("play('{0}' , '{1}')", Html.Encode(item.Filepath), Html.Encode(item.SongID))))  "  value="Play">play_arrow</button>
+                    </form>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                     <form method="post">
+                        <button class="fa fa-thumbs-o-up" type="button" runat="server" onclick="@(Html.Raw(String.Format("like('{0}')", Html.Encode(item.SongID))))  " value="+"></button>
+                    </form>
+                        <form method="post">
+                        <button class="fa fa-thumbs-o-down" type="button" runat="server" onclick="@(Html.Raw(String.Format("dislike('{0}')",  Html.Encode(item.SongID))))  " value="-"></button>
+                    </form>
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Album.Artist.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Listens)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Album.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+
+                @if (HttpContext.User.Identity.IsAuthenticated){
+                <td>
+                    <form method="post">
+                        <select id="pl-dm">
+                            @foreach (var p in Model.Playlists)
+                            {
+                                <option value=@p.PlaylistID>@p.Name</option>
+                            }
+                        </select>
+                        <input type="button" value="Add Song" onclick="@(Html.Raw(String.Format("AddSong('{0}')",  Html.Encode(item.SongID))))">
+                    </form>
+                </td>
+                }
+                <td>
+                    @*@<a asp-page="./Edit" asp-route-id="@item.SongID">Edit</a> |*@
+                    <a asp-page="./Details" asp-route-id="@item.SongID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.SongID">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+<script>
+    function play(filepath, id) {
+        sessionStorage.setItem("url", filepath);
+        sessionStorage.setItem("playSong", 1);
+
+        $.ajax({
+            type: "POST",
+            url: "/Songs/Index?handler=IncreaseListen",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {song_id: id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function like(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Songs/Index?handler=Like",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {song_id: id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function dislike(id) {
+        $.ajax({
+            type: "POST",
+            url: "/Songs/Index?handler=Dislike",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {song_id: id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function AddSong(song_id) {
+        console.log(song_id);
+        var pl_id = document.getElementById("pl-dm").value;
+        console.log(pl_id);
+        $.ajax({
+            type: "POST",
+            url: "/Songs/Index?handler=AddSong",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {song_id: song_id, pl_id : pl_id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+
+</script>
+</html>

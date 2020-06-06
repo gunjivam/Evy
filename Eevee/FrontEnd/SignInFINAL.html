@@ -1,0 +1,39 @@
+<html>
+@page
+@model Eevee.Pages.Users.SignInModel
+@{
+    ViewData["Title"] = "SignIn";
+     HttpContext.Items["UserID"]= 1;
+}
+    <head>
+        <meta charset="utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">     
+        <link href="SignInFINAL.css" rel="stylesheet" type="text/css">
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    </head>
+    
+    <h5> @Model.msg </h5>
+    <body>
+        <div class="logincent">
+            <i class="fas fa-users"></i>
+            <h1>Login</h1>
+                <form method="post">
+                    <p>Email/Username</p>
+                    <input type="text" asp-for="@Model.user_info" placeholder="Enter Email or Username">
+                    <p>Password</p>
+                    <input type="text" asp-for="@Model.user_password" placeholder="Enter Password">
+                    <input type="submit" name="submit" value="Login">
+                    <a href="#">Forget Password</a>
+                </form>
+        </div>
+    </body>
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+</html>

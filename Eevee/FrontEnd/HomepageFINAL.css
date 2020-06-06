@@ -1,0 +1,63 @@
+body
+{
+	background: black;
+}
+
+.table
+{
+	border-collapse: collapse;
+	margin: 25px 0;
+	min-width: 400px;
+	color: white;
+
+}
+
+.title
+{
+	color: white;
+}
+.table thead tr
+{
+	text-align: left;
+	background-color: #3498db;
+	text-align: left;
+	color: white;
+}
+
+.table th,
+.table td
+{
+	padding: 12px 15px;
+}
+.table tbody tr
+{
+	border-bottom: 1px solid #dddddd;
+}
+
+
+
+.fa fa-thumbs-o-up
+{
+	font-size: 24px;
+	color: green;
+}
+
+.fa fa-thumbs-o-down
+{
+	font-size: 24px;
+}
+
+.fa
+{
+	color: green;
+}
+
+.fa fa-button
+{
+	font-size: 24px;
+}
+
+.material-icons
+{
+	font-size: 24px;
+}

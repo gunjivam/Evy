@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">  
+    	<meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">     
+    	<link href="SongPage.css" rel="stylesheet" type="text/css">
+    	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+
+	<h1>
+		Home Page
+	</h1>
+
+	<form method="post">
+		<select>     @foreach (var p in Model.Playlists)
+                {
+                    <option value=@p.PlaylistID>@p.Name</option>
+                }
+         </select>
+            <input type="button" value="Select Playlist" onclick="selectPL()">
+    </form>
+
+    <table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Song Name</th>
+			<th>Like/Dislike</th>
+			<th>Artist</th>
+			<th>Duration</th>
+			<th>Listens</th>
+			<th>Album</th>
+			<th>Genre</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td> 
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Sunflower</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>Post Malone</td>
+			<td>2:39</td>
+			<td>4</td>
+			<td>Hollywood's Bleeding</td>
+			<td>HipHop/Rap</td>
+			<th>10</th>
+		</tr>
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Bean(Kobe)</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>Lil Uzi Vert</td>
+			<td>3:59</td>
+			<td>2</td>
+			<td>Eternal Atake</td>
+			<td>HipHop/Rap</td>
+			<td>9</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Demons</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>Drake</td>
+			<td>3:25</td>
+			<td>4</td>
+			<td>Dark Lane Demo Tapes</td>
+			<td>HipHop/Rap</td>
+			<td>8</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Better Days</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>OneRepublic</td>
+			<td>2:24</td>
+			<td>4</td>
+			<td>Human(Deluxe)</td>
+			<td>Pop</td>
+			<td>8</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Foreign</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>Playboi Carti</td>
+			<td>2:23</td>
+			<td>3</td>
+			<td>Die Lit</td>
+			<td>HipHop/Rap</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>Pero Ya No</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>Bad Bunny</td>
+			<td>2:41</td>
+			<td>4</td>
+			<td>YHLQMDLG</td>
+			<td>Urbano Latino</td>
+			<td>8</td>
+		</tr>	
+		<tr>
+			<td>
+				<form method="post"> 
+					<button class = "material-icons">play_arrow</button>
+				</form>
+			</td>
+			<td>A$AP FOREVER</td>
+			<td>
+				<form method="post">
+					<button class="fa fa-thumbs-o-up"></button>
+				</form>
+				<form method="post">
+					<button class="fa fa-thumbs-o-down"></button>
+				</form>
+			</td>
+			<td>A$AP Rocky</td>
+			<td>5:16</td>
+			<td>5</td>
+			<td>Testing</td>
+			<td>HipHop/Rap</td>
+			<td>8</td>
+		</tr>
+
+
+
+	</tbody>
+
+
+
+
+</html>

@@ -1,0 +1,144 @@
+<html>
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = " Welcome to Home page";
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/dropdown.css" />
+        <script src="~/js/site.js"></script>
+        <meta charset="utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">     
+        <link href="HomepageFINAL.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    <body>
+
+    <h1><div class="title">Home</div></h1>
+
+    @if (HttpContext.User.Identity.IsAuthenticated)
+    {
+
+        <form method="post">
+            <select id="pl-dm">
+                @foreach (var p in Model.Playlists)
+                {
+                    <option value=@p.PlaylistID>@p.Name</option>
+                }
+            </select>
+            <input type="button" value="Select Playlist" onclick="selectPL()">
+        </form>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Song[0].Name)
+                    </th>
+                    <th>
+                        Artist
+                    </th>
+                    <th>
+                        Genre
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Song)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Album.Artist.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Genre.Name)
+                        </td>
+                        <td>
+                            <button class="material-icons type="button" onclick="@(Html.Raw(String.Format("play('{0}')", Html.Encode(item.Filepath))))" value="Play">play_arrow</button>
+                        </td>
+                        <td>
+                            <input type="button" onclick="@(Html.Raw(String.Format("remove('{0}')", Html.Encode(item.SongID))))" value="Remove" />
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    </body>
+</html>
+
+
+<script>
+    var pid = document.getElementById("pl-dm").value;
+    sessionStorage.setItem("pl_id", pid);
+    function play(filepath) {
+        sessionStorage.setItem("url", filepath);
+        sessionStorage.setItem("playSong", 1);
+    }
+    function selectPL() {
+        var pl_id = document.getElementById("pl-dm").value;
+        console.log(pl_id);
+        sessionStorage.setItem("pl_id", pl_id);
+        $.ajax({
+            type: "POST",
+            url: "/Index?handler=SelectPL",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {pl_id : pl_id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+    function remove(song_id) {
+        var pl_id = sessionStorage.getItem("pl_id");
+        $.ajax({
+            type: "POST",
+            url: "/Index?handler=RemoveSongFromPlaylist",
+           headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            data: {song_id: song_id, pl_id: pl_id}, // passing the parameter
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (retValue) {
+                // Do something with the return value from.Net method
+                console.log(retValue);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    }
+</script>
+</html>

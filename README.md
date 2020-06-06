@@ -22,6 +22,8 @@ Vamsi Avinash Gunji:
 - Nunit Testing & Error Reporting
 - Music Player Update and Errors
 - Database management & Manual Testing
+- Machine Learning and AI Library
+- Python Coding and Integration
 
 Brandon Ganesh:
 - Front End Developer.
